@@ -17,6 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -24,12 +27,14 @@ import java.util.Date;
 import java.util.Locale;
 
 public class CrimeFragment extends Fragment {
+
+
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
 
-
+    public static final String ACCESS_COARSE_LOCATION = "android.permission.ACCESS_COARSE_LOCATION";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,7 +78,7 @@ public class CrimeFragment extends Fragment {
         Date    mDate = mCrime.getmDate();
 
         // mFormat acts as a template, and calling .format() applies it
-        SimpleDateFormat mFormat = new SimpleDateFormat("dd MMM, HH:mm, ", Locale.US); //
+        SimpleDateFormat mFormat = new SimpleDateFormat("dd MMM, HH:mm, z", Locale.US); //
         String coso = mFormat.format(mCrime.getmDate());
 
         mDateButton.setText(coso);
