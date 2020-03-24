@@ -3,6 +3,7 @@ package com.example.criminalintent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +11,17 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.Date;
+
 public class CrimeFragment extends Fragment {
     private Crime mCrime;
     private EditText mTitleField;
-    private Button  mDateButton;
+    private Button mDateButton;
     private CheckBox mSolvedCheckBox;
 
     @Override
@@ -58,6 +60,7 @@ public class CrimeFragment extends Fragment {
 
             }
         });
+
 
         mDateButton.setText(mCrime.getmDate().toString());
         mDateButton.setEnabled(false);
