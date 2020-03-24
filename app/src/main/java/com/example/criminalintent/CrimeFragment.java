@@ -1,5 +1,6 @@
 package com.example.criminalintent;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,13 +17,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class CrimeFragment extends Fragment {
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,7 +69,14 @@ public class CrimeFragment extends Fragment {
         });
 
 
-        mDateButton.setText(mCrime.getmDate().toString());
+        //Custom DATE format using SimpleDateFormat
+        Date    mDate = mCrime.getmDate();
+
+        // mFormat acts as a template, and calling .format() applies it
+        SimpleDateFormat mFormat = new SimpleDateFormat("dd MMM, HH:mm, ", Locale.US); //
+        String coso = mFormat.format(mCrime.getmDate());
+
+        mDateButton.setText(coso);
         mDateButton.setEnabled(false);
 
         mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
