@@ -26,8 +26,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class CrimeFragment extends Fragment {
+/* Couldn't use location services, used time zone instead */
 
+public class CrimeFragment extends Fragment {
 
     private Crime mCrime;
     private EditText mTitleField;
