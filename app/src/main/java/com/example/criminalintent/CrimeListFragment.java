@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +20,8 @@ import java.util.List;
 public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
+    private ImageView mSolved;
+    private ImageView mSeriousImg;
 
     @Nullable
     @Override
@@ -36,11 +40,46 @@ public class CrimeListFragment extends Fragment {
         mCrimeRecyclerView.setAdapter(mAdapter);
     }
 
-    private class CrimeHolder extends RecyclerView.ViewHolder{
+    private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+        private TextView mTitleTextView;
+        private TextView mDateTextView;
+        private Crime mCrime;
+
+
+
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(getActivity(), mCrime.getmTitle() + " clicked", Toast.LENGTH_SHORT).show();
+        }
 
         public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
             super (inflater.inflate(R.layout.list_item_crime, parent, false));
+            itemView.setOnClickListener(this);
+            //wiring up
+            mTitleTextView = itemView.findViewById(R.id.crime_title);
+            mDateTextView = itemView.findViewById(R.id.crime_date);
+            mSolved = itemView.findViewById(R.id.solved_image);
+            mSeriousImg = itemView.findViewById(R.id.serious_image);
+
+
         }
+
+        public void Bind(Crime crime){
+            mCrime = crime;
+            mTitleTextView.setText(crime.getmTitle());
+            mDateTextView.setText(crime.getmDate().toString());
+            if (crime.ismSolved())
+                mSolved.setVisibility(View.VISIBLE);
+            else
+                mSolved.setVisibility(View.GONE);
+            if (crime.isSeriousCrime())
+                mSeriousImg.setVisibility(View.VISIBLE);
+            else
+                mSeriousImg.setVisibility(View.GONE);
+
+        }
+
     }
 
     private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder>{
@@ -59,6 +98,8 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull CrimeHolder holder, int position) {
+            Crime crime = mCrimes.get(position);
+            holder.Bind(crime);
 
         }
 
@@ -67,5 +108,6 @@ public class CrimeListFragment extends Fragment {
             return mCrimes.size();
         }
     }
+
 
 }
