@@ -20,8 +20,8 @@ import java.util.List;
 public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
-    private ImageView mSolved;
-    private ImageView mSeriousImg;
+    private ImageView mSolved; //solved logo
+    private ImageView mSeriousImg; //serious logo
 
     @Nullable
     @Override
@@ -69,10 +69,14 @@ public class CrimeListFragment extends Fragment {
             mCrime = crime;
             mTitleTextView.setText(crime.getmTitle());
             mDateTextView.setText(crime.getmDate().toString());
+
+            //condition for solved crime
             if (crime.ismSolved())
                 mSolved.setVisibility(View.VISIBLE);
             else
                 mSolved.setVisibility(View.GONE);
+
+            //condition for serious crimes
             if (crime.isSeriousCrime())
                 mSeriousImg.setVisibility(View.VISIBLE);
             else

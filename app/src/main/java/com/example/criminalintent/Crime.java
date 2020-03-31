@@ -8,7 +8,7 @@ public class Crime {
     private String mTitle;
     private Date mDate;
     private boolean mSolved;
-    private boolean seriousCrime;
+    private boolean seriousCrime; //solution to challenge 2
 
     public boolean isSeriousCrime() {
         return seriousCrime;

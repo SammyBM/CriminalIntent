@@ -30,6 +30,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/crime_title"></TextView>
 
+    <!-- Serious logo -->
+
     <ImageView
         android:id="@+id/solved_image"
         android:layout_width="60dp"
@@ -40,6 +42,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/crime_title"
         app:srcCompat="@drawable/baton_cuffs_logo" />
+
+    <!-- Serious logo -->
 
     <ImageView
         android:id="@+id/serious_image"

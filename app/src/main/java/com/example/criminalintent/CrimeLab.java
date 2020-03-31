@@ -22,8 +22,8 @@ public class CrimeLab {
         for (int i = 0; i < 100; i++){
             Crime crime = new Crime();
             crime.setmTitle("Crime # " + i);
-            crime.setmSolved(i % 2 == 0);
-            crime.setSeriousCrime(i % 3 == 0);
+            crime.setmSolved(i % 2 == 0);       //make every second crime a solved crime
+            crime.setSeriousCrime(i % 3 == 0);  //make every third crime a serious crime
             mCrimes.add(crime);
         }
     }
