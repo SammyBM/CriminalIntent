@@ -25,6 +25,7 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 
 /* Couldn't use location services, used time zone instead */
 
@@ -40,8 +41,9 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mCrime = new Crime();
+        //mCrime = new Crime();
+        UUID crimeID = (UUID) getActivity().getIntent().getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
+        mCrime = CrimeLab.get(getActivity()).getCrime(crimeID);
     }
 
 
@@ -54,8 +56,10 @@ public class CrimeFragment extends Fragment {
         //wiring up
 
         mTitleField = v.findViewById(R.id.crime_title);
+        mTitleField.setText(mCrime.getmTitle());
         mDateButton = v.findViewById(R.id.date_button);
         mSolvedCheckBox = v.findViewById(R.id.crime_solved);
+        mSolvedCheckBox.setChecked(mCrime.ismSolved());
 
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
