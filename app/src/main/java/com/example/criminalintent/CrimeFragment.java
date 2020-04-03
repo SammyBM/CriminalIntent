@@ -1,10 +1,8 @@
 package com.example.criminalintent;
 
-import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
 
-import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -32,11 +25,7 @@ import java.util.UUID;
 public class CrimeFragment extends Fragment {
 
     private Crime mCrime;
-    private EditText mTitleField;
-    private Button mDateButton;
-    private CheckBox mSolvedCheckBox;
 
-    public static final String ACCESS_COARSE_LOCATION = "android.permission.ACCESS_COARSE_LOCATION";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,15 +42,15 @@ public class CrimeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_crime, container, false);
 
+        EditText mTitleField = v.findViewById(R.id.crime_title);
+        Button mDateButton = v.findViewById(R.id.date_button);
+        CheckBox mSolvedCheckBox = v.findViewById(R.id.crime_solved);
+
         //wiring up
-
-        mTitleField = v.findViewById(R.id.crime_title);
         mTitleField.setText(mCrime.getmTitle());
-        mDateButton = v.findViewById(R.id.date_button);
-        mSolvedCheckBox = v.findViewById(R.id.crime_solved);
         mSolvedCheckBox.setChecked(mCrime.ismSolved());
-
         mTitleField.addTextChangedListener(new TextWatcher() {
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -80,7 +69,6 @@ public class CrimeFragment extends Fragment {
 
 
         //Custom DATE format using SimpleDateFormat
-        Date    mDate = mCrime.getmDate();
 
         // mFormat acts as a template, and calling .format() applies it
         SimpleDateFormat mFormat = new SimpleDateFormat("dd MMM, HH:mm, z", Locale.US); //
