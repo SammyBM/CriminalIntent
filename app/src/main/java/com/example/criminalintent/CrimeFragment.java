@@ -25,13 +25,15 @@ import java.util.UUID;
 public class CrimeFragment extends Fragment {
 
     private Crime mCrime;
+    private static final String ARG_Crime_ID = "crime_id";
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //mCrime = new Crime();
-        UUID crimeID = (UUID) getActivity().getIntent().getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
+        //UUID crimeID = (UUID) getActivity().getIntent().getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
+        UUID crimeID = (UUID) getArguments().getSerializable(ARG_Crime_ID);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeID);
     }
 
@@ -86,4 +88,13 @@ public class CrimeFragment extends Fragment {
 
         return v;
     }
+
+    public static CrimeFragment newInstance (UUID crime_id){
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_Crime_ID, crime_id);
+        CrimeFragment fragment = new CrimeFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
 }
