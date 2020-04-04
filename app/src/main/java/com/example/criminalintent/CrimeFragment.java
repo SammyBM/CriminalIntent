@@ -10,22 +10,31 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+
+import static android.widget.Toast.makeText;
 
 /* Couldn't use location services, used time zone instead */
 
 public class CrimeFragment extends Fragment {
 
     private Crime mCrime;
+    private List<Crime> crimeList;
+    private ViewPager crimePager;
     private static final String ARG_Crime_ID = "crime_id";
+
 
 
     @Override
@@ -35,6 +44,7 @@ public class CrimeFragment extends Fragment {
         //UUID crimeID = (UUID) getActivity().getIntent().getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
         UUID crimeID = (UUID) getArguments().getSerializable(ARG_Crime_ID);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeID);
+        crimeList = CrimeLab.get(getContext()).getCrimes();
     }
 
 
@@ -47,6 +57,12 @@ public class CrimeFragment extends Fragment {
         EditText mTitleField = v.findViewById(R.id.crime_title);
         Button mDateButton = v.findViewById(R.id.date_button);
         CheckBox mSolvedCheckBox = v.findViewById(R.id.crime_solved);
+
+        crimePager = v.findViewById(R.id.crime_view_pager);
+        Button mFirst = v.findViewById(R.id.begin_pager_btn);
+        Button mLast = v.findViewById(R.id.end_pager_btn);
+        Button mPolice = v.findViewById(R.id.police_call_btn);
+        ImageView mPhoneLogo = v.findViewById(R.id.police_call_logo);
 
         //wiring up
         mTitleField.setText(mCrime.getmTitle());
@@ -68,6 +84,41 @@ public class CrimeFragment extends Fragment {
 
             }
         });
+        if (mCrime.getmId().equals(crimeList.get(0).getmId()))
+            mFirst.setVisibility(View.GONE);
+        else{
+            mFirst.setVisibility(View.VISIBLE);
+            mFirst.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CrimePagerActivity.goToPosition(0);
+                }
+            });
+        }
+        if (mCrime.getmId().equals(crimeList.get(crimeList.size()-1).getmId()))
+            mLast.setVisibility(View.GONE);
+        else{
+            mLast.setVisibility(View.VISIBLE);
+            mLast.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CrimePagerActivity.goToPosition(crimeList.size()-1);
+                }
+            });
+        }
+        if (mCrime.isSeriousCrime()) {
+            mPolice.setVisibility(View.VISIBLE);
+            mPhoneLogo.setVisibility(View.VISIBLE);
+            mPolice.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), "Calling La Chota", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else{
+            mPhoneLogo.setVisibility(View.GONE);
+            mPolice.setVisibility(View.GONE);
+        }
 
 
         //Custom DATE format using SimpleDateFormat
@@ -96,5 +147,7 @@ public class CrimeFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
+
 
 }

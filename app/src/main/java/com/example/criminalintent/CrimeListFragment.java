@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,8 +22,10 @@ import java.util.List;
 public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
+
     private ImageView mSolved; //solved logo
     private ImageView mSeriousImg; //serious logo
+
 
     @Nullable
     @Override
@@ -59,7 +62,8 @@ public class CrimeListFragment extends Fragment {
         public void onClick(View v) {
             //Toast.makeText(getActivity(), mCrime.getmTitle() + " clicked", Toast.LENGTH_SHORT).show();
             //Intent intent = new Intent(getActivity(), CrimeActivity.class);
-            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getmId());
+            //Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getmId());
+            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getmId());
             startActivity(intent);
         }
 
@@ -71,6 +75,7 @@ public class CrimeListFragment extends Fragment {
             mDateTextView = itemView.findViewById(R.id.crime_date);
             mSolved = itemView.findViewById(R.id.solved_image);
             mSeriousImg = itemView.findViewById(R.id.serious_image);
+
 
 
         }
@@ -91,6 +96,8 @@ public class CrimeListFragment extends Fragment {
                 mSeriousImg.setVisibility(View.VISIBLE);
             else
                 mSeriousImg.setVisibility(View.GONE);
+
+            //
 
         }
 
