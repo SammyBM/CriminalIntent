@@ -19,7 +19,7 @@ public class CrimePagerActivity extends AppCompatActivity {
 
     private static final String EXTRA_CRIME_ID = "crimeId";
 
-    private static ViewPager mViewPager;
+    private static ViewPager mViewPager; //made static for goToPosition method
     private List<Crime> mCrimes;
 
     @Override
@@ -60,6 +60,8 @@ public class CrimePagerActivity extends AppCompatActivity {
         return intent;
     }
 
+
+    //Created to manipulate CurrentItem in page viewer from other activities or fragments
     public static void goToPosition(int pos){
         mViewPager.setCurrentItem(pos);
     }

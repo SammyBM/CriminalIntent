@@ -16,7 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
+
 
 
 import java.text.SimpleDateFormat;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import static android.widget.Toast.makeText;
+
 
 /* Couldn't use location services, used time zone instead */
 
@@ -32,7 +32,6 @@ public class CrimeFragment extends Fragment {
 
     private Crime mCrime;
     private List<Crime> crimeList;
-    private ViewPager crimePager;
     private static final String ARG_Crime_ID = "crime_id";
 
 
@@ -58,7 +57,8 @@ public class CrimeFragment extends Fragment {
         Button mDateButton = v.findViewById(R.id.date_button);
         CheckBox mSolvedCheckBox = v.findViewById(R.id.crime_solved);
 
-        crimePager = v.findViewById(R.id.crime_view_pager);
+
+        //added functions initialization
         Button mFirst = v.findViewById(R.id.begin_pager_btn);
         Button mLast = v.findViewById(R.id.end_pager_btn);
         Button mPolice = v.findViewById(R.id.police_call_btn);
@@ -84,9 +84,11 @@ public class CrimeFragment extends Fragment {
 
             }
         });
+
+        //added functions (goToPosition method is created in CrimePagerActivity.java)
         if (mCrime.getmId().equals(crimeList.get(0).getmId()))
             mFirst.setVisibility(View.GONE);
-        else{
+        else{                                   //If we are not in first position button appears
             mFirst.setVisibility(View.VISIBLE);
             mFirst.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -97,7 +99,7 @@ public class CrimeFragment extends Fragment {
         }
         if (mCrime.getmId().equals(crimeList.get(crimeList.size()-1).getmId()))
             mLast.setVisibility(View.GONE);
-        else{
+        else{                                   //If we are not in last position button appears
             mLast.setVisibility(View.VISIBLE);
             mLast.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -106,7 +108,7 @@ public class CrimeFragment extends Fragment {
                 }
             });
         }
-        if (mCrime.isSeriousCrime()) {
+        if (mCrime.isSeriousCrime()) { //When in a serious crime "Call Police" button appears
             mPolice.setVisibility(View.VISIBLE);
             mPhoneLogo.setVisibility(View.VISIBLE);
             mPolice.setOnClickListener(new View.OnClickListener() {
