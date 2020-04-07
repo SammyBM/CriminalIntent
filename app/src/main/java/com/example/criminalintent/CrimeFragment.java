@@ -37,7 +37,9 @@ public class CrimeFragment extends Fragment {
     private List<Crime> crimeList;
     private static final String ARG_Crime_ID = "crime_id";
     private static final String DIALOG_DATE = "Dialog_Date";
+    private static final String DIALOG_TIME = "Dialog_Time";
     private static final int REQUEST_DATE = 0;
+    private static final int REQUEST_TIME = 1;
 
     Button mDateButton;
 
@@ -172,6 +174,18 @@ public class CrimeFragment extends Fragment {
             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setmDate(date);
             updateDate(mCrime.getmDate().toString());
+
+            //Starts time picker
+            FragmentManager manager = getFragmentManager();
+            TimePickerFragment dialog= TimePickerFragment.newInstance(mCrime.getmDate());
+            dialog.setTargetFragment(CrimeFragment.this, REQUEST_TIME);
+            dialog.show(manager, DIALOG_TIME);
+        }
+        if (requestCode == REQUEST_TIME){
+            Date date = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+            mCrime.setmDate(date);
+            updateDate(mCrime.getmDate().toString());
+
         }
     }
 
