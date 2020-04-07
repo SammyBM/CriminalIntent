@@ -9,7 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TimePicker;
+import android.widget.NumberPicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,22 +18,26 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.Date;
 
-public class TimePickerFragment extends DialogFragment {
+public class SecPickerFragment extends DialogFragment {
 
-    private final static String ARG_TIME = "time";
-    private TimePicker mTimePicker;
-    static final String EXTRA_TIME = "extraTime";
+    private final static String ARG_SEC = "sec";
+    private NumberPicker mSecPicker;
+    private static final String EXTRA_SEC = "extraSec";
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        final Date date = (Date) getArguments().getSerializable(ARG_TIME);
+        final Date date = (Date) getArguments().getSerializable(ARG_SEC);
 
 
-        View v = LayoutInflater.from(getActivity()).inflate(R.layout.time_dialog, null);
+        View v = LayoutInflater.from(getActivity()).inflate(R.layout.seconds_dialog, null);
 
         //wiring up
-        mTimePicker = v.findViewById(R.id.dialog_time_picker);
+        mSecPicker = v.findViewById(R.id.dialog_sec_picker);
+
+        //Establish Picker Range
+        mSecPicker.setMaxValue(59); //Maximum 59 secs
+        mSecPicker.setMinValue(0);  //Minimum 0 secs
 
         return new AlertDialog.Builder(getActivity()).setView(v).setTitle(R.string.date_picker_title)
                 .setPositiveButton(android.R.string.ok,
@@ -42,8 +46,8 @@ public class TimePickerFragment extends DialogFragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                date.setHours(mTimePicker.getHour());
-                                date.setMinutes(mTimePicker.getMinute());
+                                //setting seconds
+                                date.setSeconds(mSecPicker.getValue());
 
                                 sendResult(Activity.RESULT_OK, date);
                             }
@@ -54,10 +58,11 @@ public class TimePickerFragment extends DialogFragment {
 
 
 
-    static TimePickerFragment newInstance(Date date){
+
+    static SecPickerFragment newInstance(Date date){
         Bundle args = new Bundle();
-        args.putSerializable(ARG_TIME, date);
-        TimePickerFragment fragment = new TimePickerFragment();
+        args.putSerializable(ARG_SEC, date);
+        SecPickerFragment fragment = new SecPickerFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,10 +71,11 @@ public class TimePickerFragment extends DialogFragment {
         if (getTargetFragment() == null)
             return;
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_TIME, date);
+        intent.putExtra(EXTRA_SEC, date);
 
         getTargetFragment().onActivityResult(getTargetRequestCode(),resultCode,intent);
     }
+
 
 
 }

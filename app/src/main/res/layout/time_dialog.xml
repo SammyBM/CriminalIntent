@@ -6,10 +6,4 @@
     android:layout_gravity="center"
     android:gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android">
-  <!--  <androidx.appcompat.widget.AppCompatSeekBar
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"></androidx.appcompat.widget.AppCompatSeekBar>
-    -->
 </TimePicker>

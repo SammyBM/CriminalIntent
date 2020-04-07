@@ -38,10 +38,12 @@ public class CrimeFragment extends Fragment {
     private static final String ARG_Crime_ID = "crime_id";
     private static final String DIALOG_DATE = "Dialog_Date";
     private static final String DIALOG_TIME = "Dialog_Time";
+    private static final String DIALOG_SEC = "Dialog_Sec";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
+    private static final int REQUEST_SEC = 2;
 
-    Button mDateButton;
+    private Button mDateButton;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -186,6 +188,16 @@ public class CrimeFragment extends Fragment {
             mCrime.setmDate(date);
             updateDate(mCrime.getmDate().toString());
 
+            //Starts Seconds Picker
+            FragmentManager manager = getFragmentManager();
+            SecPickerFragment dialog= SecPickerFragment.newInstance(mCrime.getmDate());
+            dialog.setTargetFragment(CrimeFragment.this, REQUEST_SEC);
+            dialog.show(manager, DIALOG_SEC);
+        }
+        if (requestCode == REQUEST_SEC){
+            Date date = (Date) data.getSerializableExtra(SecPickerFragment.EXTRA_SEC);
+            mCrime.setmDate(date);
+            updateDate(mCrime.getmDate().toString());
         }
     }
 
