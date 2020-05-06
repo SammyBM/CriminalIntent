@@ -12,6 +12,8 @@
         android:layout_height="match_parent"
        ></androidx.recyclerview.widget.RecyclerView>
 
+
+    <!-- This tag was created to start the implementation of UX -->
     <TextView
         android:id="@+id/empty_set"
         android:layout_width="wrap_content"

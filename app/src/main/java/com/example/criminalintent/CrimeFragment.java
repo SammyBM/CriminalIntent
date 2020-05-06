@@ -209,20 +209,25 @@ public class CrimeFragment extends Fragment {
         mDateButton.setText(s);
     }
 
+    //Menu toolbar
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.crime_pager_fragment, menu);
+        inflater.inflate(R.menu.crime_pager_fragment, menu);//Starts layout
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.delete_crime:
-                CrimeLab.get(getActivity()).deleteCrime(mCrime);
-                getActivity().finish();
+            case R.id.delete_crime://Bin button
+                CrimeLab.get(getActivity()).deleteCrime(mCrime);//Deletes crime from list
+                getActivity().finish();//Kills pager viwer
+
+                //Starts new pager viewer without erased crime
                 Intent intent = CrimePagerActivity.newIntent(getContext(), CrimeLab.get(getActivity()).getNextId(mCrime));
                 startActivity(intent);
+
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -43,6 +43,7 @@ public class CrimeLab {
         //mDatabase.insert(CrimeTable.NAME, null, values);
     }
 
+    //method made to delete crimes with ease
     public void deleteCrime(Crime c){
         mCrimes.remove(c);
     }
