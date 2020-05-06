@@ -28,6 +28,7 @@ public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
     private Crime mCrime;
+    private TextView mEmptySet;
 
     private ImageView mSolved; //solved logo
     private ImageView mSeriousImg; //serious logo
@@ -48,13 +49,12 @@ public class CrimeListFragment extends Fragment {
         View view = inflater.inflate(R.layout.crime_list_fragment, container, false);
         mCrimeRecyclerView = view.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mEmptySet = view.findViewById(R.id.empty_set);
         if (savedInstanceState != null)
             mSubtitleVisible = savedInstanceState.getBoolean(SAVED_STUBTITLE_VISIBLE);
+
+
         updateUI();
-
-        //Challenge 6: UX
-      //  if()
-
         return view;
     }
 
@@ -74,6 +74,12 @@ public class CrimeListFragment extends Fragment {
         } else{
             mAdapter.notifyDataSetChanged();
         }
+        if (crimes.size() == 0){
+            mEmptySet.setVisibility(View.VISIBLE);
+
+        }
+        else{
+            mEmptySet.setVisibility(View.GONE);}
         updateSubtitle();
 
     }

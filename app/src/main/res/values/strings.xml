@@ -9,4 +9,5 @@
     <string name="show_subtitle">Show Subtitle</string>
     <string name="hide_subtitle">Hide Subtitle</string>
     <string name="subtitle_format">%1$d crime</string>
+    <string name="empty_set">The list is empty, to add a new crime press the + icon on the top right corner of your screen</string>
 </resources>
