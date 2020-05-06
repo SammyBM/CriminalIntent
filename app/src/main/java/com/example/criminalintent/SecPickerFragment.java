@@ -22,7 +22,7 @@ public class SecPickerFragment extends DialogFragment {
 
     private final static String ARG_SEC = "sec";
     private NumberPicker mSecPicker;
-    private static final String EXTRA_SEC = "extraSec";
+    public static final String EXTRA_SEC = "extraSec";
 
     @NonNull
     @Override
