@@ -46,15 +46,15 @@ public class CrimePagerActivity extends AppCompatActivity {
             }
         });
 
-        for (int i = 0; i <mCrimes.size(); i++){
-            if(mCrimes.get(i).getmId().equals(crimeId)){
+        for (int i = 0; i < mCrimes.size(); i++) {
+            if (mCrimes.get(i).getmId().equals(crimeId)) {
                 mViewPager.setCurrentItem(i);
                 break;
             }
         }
     }
 
-    public static Intent newIntent (Context packageContext, UUID crimeId){
+    public static Intent newIntent(Context packageContext, UUID crimeId) {
         Intent intent = new Intent(packageContext, CrimePagerActivity.class);
         intent.putExtra(EXTRA_CRIME_ID, crimeId);
         return intent;
@@ -62,7 +62,11 @@ public class CrimePagerActivity extends AppCompatActivity {
 
 
     //Created to manipulate CurrentItem in page viewer from other activities or fragments
-    public static void goToPosition(int pos){
+    public static void goToPosition(int pos) {
         mViewPager.setCurrentItem(pos);
+    }
+
+    public static int getPosition() {
+        return mViewPager.getCurrentItem();
     }
 }

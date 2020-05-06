@@ -51,6 +51,10 @@ public class CrimeListFragment extends Fragment {
         if (savedInstanceState != null)
             mSubtitleVisible = savedInstanceState.getBoolean(SAVED_STUBTITLE_VISIBLE);
         updateUI();
+
+        //Challenge 6: UX
+      //  if()
+
         return view;
     }
 

@@ -43,6 +43,19 @@ public class CrimeLab {
         //mDatabase.insert(CrimeTable.NAME, null, values);
     }
 
+    public void deleteCrime(Crime c){
+        mCrimes.remove(c);
+    }
+
+    public UUID getNextId(Crime c){
+        for (int x = 0; x<mCrimes.size(); x++){
+            if (mCrimes.get(x).getmId().equals(c.getmId())){
+                return mCrimes.get(x+1).getmId();
+            }
+        }
+        return null;
+    }
+
     /*public void updateCrime(Crime crime){
         String uuidString = crime.getmId().toString();
         ContentValues values = getContentValues(crime);
@@ -72,5 +85,7 @@ public class CrimeLab {
 
         return values;
     }
+
+
 
 }
