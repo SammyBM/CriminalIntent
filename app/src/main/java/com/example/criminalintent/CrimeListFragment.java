@@ -64,32 +64,31 @@ public class CrimeListFragment extends Fragment {
         outState.putBoolean(SAVED_STUBTITLE_VISIBLE, mSubtitleVisible);
     }
 
-    private void updateUI(){
+    private void updateUI() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
 
-        if(mAdapter==null){
+        if (mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
-        } else{
+        } else {
             mAdapter.notifyDataSetChanged();
         }
-        if (crimes.size() == 0){
+        if (crimes.size() == 0) {
             mEmptySet.setVisibility(View.VISIBLE);
 
+        } else {
+            mAdapter.setCrimes(crimes);
+            mEmptySet.setVisibility(View.GONE);
         }
-        else{
-            mEmptySet.setVisibility(View.GONE);}
         updateSubtitle();
 
     }
 
-    private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mTitleTextView;
         private TextView mDateTextView;
-
-
 
 
         @Override
@@ -102,7 +101,7 @@ public class CrimeListFragment extends Fragment {
         }
 
         public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
-            super (inflater.inflate(R.layout.list_item_crime, parent, false));
+            super(inflater.inflate(R.layout.list_item_crime, parent, false));
             itemView.setOnClickListener(this);
             //wiring up
             mTitleTextView = itemView.findViewById(R.id.crime_title);
@@ -111,10 +110,9 @@ public class CrimeListFragment extends Fragment {
             mSeriousImg = itemView.findViewById(R.id.serious_image);
 
 
-
         }
 
-        public void Bind(Crime crime){
+        public void Bind(Crime crime) {
             mCrime = crime;
             mTitleTextView.setText(crime.getmTitle());
             mDateTextView.setText(crime.getmDate().toString());
@@ -137,10 +135,10 @@ public class CrimeListFragment extends Fragment {
 
     }
 
-    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder>{
+    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
         private List<Crime> mCrimes;
 
-        public CrimeAdapter(List<Crime> crimes){
+        public CrimeAdapter(List<Crime> crimes) {
             mCrimes = crimes;
         }
 
@@ -162,19 +160,17 @@ public class CrimeListFragment extends Fragment {
         public int getItemCount() {
             return mCrimes.size();
         }
+
+        public void setCrimes(List<Crime> crimes) {
+            mCrimes = crimes;
+        }
     }
+
 
     @Override
     public void onResume() {
         super.onResume();
         updateUI();
-    }
-
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        //CrimeLab.get(getActivity()).updateCrime(mCrime);
     }
 
 
@@ -192,7 +188,7 @@ public class CrimeListFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.new_crime:
                 Crime crime = new Crime();
                 CrimeLab.get(getActivity()).addCrime(crime);
@@ -212,8 +208,8 @@ public class CrimeListFragment extends Fragment {
         }
     }
 
-    private void updateSubtitle(){
-        CrimeLab crimeLab =  CrimeLab.get(getActivity());
+    private void updateSubtitle() {
+        CrimeLab crimeLab = CrimeLab.get(getActivity());
         int crimeCount = crimeLab.getCrimes().size();
         String subtitle = getString(R.string.subtitle_format, crimeCount);
         if (!mSubtitleVisible)
@@ -221,5 +217,4 @@ public class CrimeListFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.getSupportActionBar().setSubtitle(subtitle);
     }
-
 }

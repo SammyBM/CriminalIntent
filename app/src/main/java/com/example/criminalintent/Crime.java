@@ -20,6 +20,13 @@ public class Crime {
 
     public Crime (){
         mId = UUID.randomUUID();
+        mTitle = null;
+        mDate = new Date();
+        mSolved = false;
+    }
+
+    public Crime (UUID id){
+        mId = id;
         mDate = new Date();
     }
 
